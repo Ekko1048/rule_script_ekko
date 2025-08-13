@@ -35,3 +35,9 @@ jobs:
       - name: Push all tags to origin
         run: |
           git push origin --tags --force
+            - name: Create and push date tag
+        run: |
+          TAG=$(date +'%Y-%m-%d')
+          git checkout master
+          git tag -f "$TAG"
+          git push origin "$TAG" --force
