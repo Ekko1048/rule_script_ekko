@@ -1,0 +1,27 @@
+payload:
+- DOMAIN-KEYWORD,target
+- DOMAIN-KEYWORD,homedepot
+- DOMAIN-KEYWORD,lowes
+- DOMAIN-KEYWORD,forbes
+- DOMAIN-KEYWORD,kohls
+- DOMAIN-KEYWORD,wyo
+- DOMAIN-KEYWORD,walmart
+- IP-CIDR,165.227.0.0/16
+- DOMAIN-KEYWORD,2a2y.com
+- DOMAIN-KEYWORD,3ue.com
+- DOMAIN-KEYWORD,udirc.com
+- DOMAIN-KEYWORD,traxxas.com
+- DOMAIN-KEYWORD,fashions.top
+- DOMAIN-KEYWORD,zikliy.com
+- DOMAIN-KEYWORD,rlaarlo.com
+- DOMAIN-KEYWORD,shopltk.com
+- DOMAIN-KEYWORD,rcbylena.com
+- DOMAIN-KEYWORD,mailchimp.com
+- DOMAIN-KEYWORD,mcusercontent.com
+- DOMAIN-KEYWORD,redcatracing.com
+- DOMAIN-KEYWORD,fmshobby.com
+- DOMAIN-KEYWORD,redcatracing.com
+- DOMAIN-KEYWORD,rcscrewz.com
+- DOMAIN-KEYWORD,wpecomus.com
+- DOMAIN-KEYWORD,zikily.com
+- DOMAIN-KEYWORD,vikingsword.top
