@@ -1,33 +1,27 @@
-name: Mirror ios_rule_script
+name: Sync ios_rule_script
 
 on:
   schedule:
-    # 每天凌晨 2 点执行
-    - cron: "0 2 * * *"
+    - cron: '0 2 * * *'  # 每天凌晨2点执行
   workflow_dispatch:  # 支持手动触发
 
 jobs:
-  mirror:
+  sync:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout this repo
         uses: actions/checkout@v4
         with:
-          persist-credentials: false
-          fetch-depth: 0  # 保留历史记录
+          persist-credentials: true
+          fetch-depth: 0  # 保留完整历史记录
 
-      - name: Set up Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Add source remote
+      - name: Add upstream remote
         run: |
           git remote remove upstream || true
           git remote add upstream https://github.com/blackmatrix7/ios_rule_script.git
 
-      - name: Fetch all branches & tags
+      - name: Fetch all branches and tags from upstream
         run: |
           git fetch upstream --prune --tags --force
 
