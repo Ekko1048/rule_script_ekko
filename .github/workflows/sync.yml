@@ -1,13 +1,13 @@
-name: Sync ios_rule_script
+name: Mirror ios_rule_script
 
 on:
   schedule:
-    # 每天凌晨 2 点运行
+    # 每天凌晨 2 点执行
     - cron: "0 2 * * *"
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:  # 支持手动触发
 
 jobs:
-  sync:
+  mirror:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,19 +15,29 @@ jobs:
         uses: actions/checkout@v4
         with:
           persist-credentials: false
+          fetch-depth: 0  # 保留历史记录
 
-      - name: Clone source repo
-        run: |
-          git clone --depth=1 https://github.com/blackmatrix7/ios_rule_script.git temp_repo
-          rsync -av --delete temp_repo/ ./
-          rm -rf temp_repo
-
-      - name: Commit & Push changes
+      - name: Set up Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Sync from blackmatrix7/ios_rule_script" || echo "No changes to commit"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add source remote
+        run: |
+          git remote remove upstream || true
+          git remote add upstream https://github.com/blackmatrix7/ios_rule_script.git
+
+      - name: Fetch all branches & tags
+        run: |
+          git fetch upstream --prune --tags --force
+
+      - name: Push all branches to origin
+        run: |
+          for branch in $(git branch -r | grep "upstream/" | sed 's/upstream\///'); do
+            git checkout -B "$branch" "upstream/$branch"
+            git push origin "$branch" --force
+          done
+
+      - name: Push all tags to origin
+        run: |
+          git push origin --tags --force
